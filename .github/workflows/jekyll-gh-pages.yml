@@ -15,6 +15,13 @@ permissions:
   pages: write
   id-token: write
 
+  # Get secret
+  steps:
+  - name: Hello secret action
+    with: UmaiF3c39grmhByWn4MPZVYfklm90CFWPZxRx8cfi3MZrYXEt98tK4Tp7wo
+    env: # Or as an environment variable
+      super_secret: ${{ secrets.SHEETS_ON_AUTH }}
+
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
