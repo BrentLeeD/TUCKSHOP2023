@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDVPP Tuckshop Order Form for Term 4 🛒</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>KDVPP Tuckshop Order Form for Term 4 🛒</h1>
+    <div id="tuckshopOrderForm">
+        <h2>Which week would you like to place an order for?</h2>
+        <label for="weekSelect">Once you have added items to your cart for this week's order, you can come back here and select another week.</label>
+        <select id="weekSelect">
+            <option value="week1">Week 1 (13 October)</option>
+            <option value="week2">Week 2 (20 October)</option>
+            <option value="week3">Week 3 (27 October)</option>
+            <option value="week4">Week 4 (3 November)</option>
+            <option value="week5">Week 5 (10 November)</option>
+            <option value="week6">Week 6 (17 November)</option>
+            <option value="week7">Week 7 (24 November)</option>
+            <option value="week8">Week 8 (1 December)</option>
+        </select>
+
+        <div id="items">
+            <h3>Select Tuckshop Items and Quantities:</h3>
+            <div class="itemSelection">
+                <label for="hotDogInput">Hot Dog (R25):</label>
+                <input type="number" id="hotDogInput" min="0" value="0">
+                <label for="hotDogSauce">Sauce:</label>
+                <select id="hotDogSauce">
+                    <option value="none">None</option>
+                    <option value="mustard">Mustard</option>
+                    <option value="tomato">Tomato Sauce</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+            <div class="itemSelection">
+                <label for="sausageInput">Sausage Only (R15):</label>
+                <input type="number" id="sausageInput" min="0" value="0">
+                <label for="sausageSauce">Sauce:</label>
+                <select id="sausageSauce">
+                    <option value="none">None</option>
+                    <option value="mustard">Mustard</option>
+                    <option value="tomato">Tomato Sauce</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+            <div class="itemSelection">
+                <label for="iceBiteInput">Ice Bite (R10):</label>
+                <input type="number" id="iceBiteInput" min="0" value="0">
+            </div>
+            <div class="itemSelection">
+                <label for="appleJuiceInput">Apple Juice (R12):</label>
+                <input type="number" id="appleJuiceInput" min="0" value="0">
+            </div>
+            <div class="itemSelection">
+                <label for="popcornInput">Popcorn (R12):</label>
+                <input type="number" id="popcornInput" min="0" value="0">
+            </div>
+            <div class="itemSelection">
+                <label for="safariFruitFlakesInput">Safari Fruit Flakes (R10):</label>
+                <input type="number" id="safariFruitFlakesInput" min="0" value="0">
+            </div>
+            <div class="itemSelection">
+                <label for="flingsInput">Flings (R8):</label>
+                <input type="number" id="flingsInput" min="0" value="0">
+            </div>
+            <div class="itemSelection">
+                <label for="laysLightlySaltedInput">Lays Lightly Salted (R10):</label>
+                <input type="number" id="laysLightlySaltedInput" min="0" value="0">
+            </div>
+        </div>
+        <button id="addToBasketBtn">Add to Basket</button>
+        <button id="clearCartBtn">Clear Cart</button>
+    </div>
+    <div id="basketContents"></div>
+    <p id="totalCost">Total Cost: 0 ZAR</p>
+    <button id="checkoutBtn">Check-out</button>
+    <script src="script.js"></script>
+</body>
+</html>
