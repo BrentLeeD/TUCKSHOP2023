@@ -199,7 +199,7 @@ const childName = prompt("Please enter your child's name and class teacher:");
           ${orderDetails}
           Total Cost: ${totalAmount} ZAR
         `;
- const apiKey = secrets.SHEETS_ON_AUTH;
+ const apiKey = 'UmaiF3c39grmhByWn4MPZVYfklm90CFWPZxRx8cfi3MZrYXEt98tK4Tp7wo';
         const sheetId = '1A2c5YPjGiMzbTco8MsCbNCHDimWycyrq1iVd1Pulyjg';
         const apiUrl = `https://api.sheetson.com/v2/sheets/TUCK`;
 
