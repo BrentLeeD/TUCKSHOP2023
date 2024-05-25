@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teen Chat Box</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #121212;
+            color: #f0f0f0;
+        }
+
+        .chat-container {
+            background: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: #6200ea;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .chat-box {
+            padding: 20px;
+            height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-top: 2px solid #6200ea;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 10px;
+            width: fit-content;
+            max-width: 80%;
+        }
+
+        .bot {
+            background: #bb86fc;
+            align-self: flex-start;
+        }
+
+        .user {
+            background: #03dac6;
+            align-self: flex-end;
+        }
+
+        .chat-input-area {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #1f1f1f;
+            border-top: 2px solid #6200ea;
+        }
+
+        .chat-input-area input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            margin: 0 10px;
+            background: #333;
+            color: #f0f0f0;
+        }
+
+        .chat-input-area button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 10px;
+            color: #6200ea;
+        }
+
+        #send-btn {
+            background-color: #6200ea;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes rainbowGlow {
+            0% {
+                box-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 80px #ff0000, 0 0 90px #ff0000, 0 0 100px #ff0000, 0 0 150px #ff0000;
+            }
+            14% {
+                box-shadow: 0 0 5px #ff9c00, 0 0 10px #ff9c00, 0 0 20px #ff9c00, 0 0 40px #ff9c00, 0 0 80px #ff9c00, 0 0 90px #ff9c00, 0 0 100px #ff9c00, 0 0 150px #ff9c00;
+            }
+            28% {
+                box-shadow: 0 0 5px #ffff00, 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 40px #ffff00, 0 0 80px #ffff00, 0 0 90px #ffff00, 0 0 100px #ffff00, 0 0 150px #ffff00;
+            }
+            42% {
+                box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00, 0 0 90px #00ff00, 0 0 100px #00ff00, 0 0 150px #00ff00;
+            }
+            57% {
+                box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 80px #00ffff, 0 0 90px #00ffff, 0 0 100px #00ffff, 0 0 150px #00ffff;
+            }
+            71% {
+                box-shadow: 0 0 5px #0000ff, 0 0 10px #0000ff, 0 0 20px #0000ff, 0 0 40px #0000ff, 0 0 80px #0000ff, 0 0 90px #0000ff, 0 0 100px #0000ff, 0 0 150px #0000ff;
+            }
+            85% {
+                box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 80px #ff00ff, 0 0 90px #ff00ff, 0 0 100px #ff00ff, 0 0 150px #ff00ff;
+            }
+            100% {
+                box-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 80px #ff0000, 0 0 90px #ff0000, 0 0 100px #ff0000, 0 0 150px #ff0000;
+            }
+        }
+
+        #send-btn.glow {
+            animation: rainbowGlow 1s ease-in-out;
+            animation-iteration-count: 1;
+        }
+
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            background: #1f1f1f;
+            border-top: 2px solid #6200ea;
+        }
+
+        .quick-reply {
+            background: #333;
+            color: #f0f0f0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quick-reply:hover {
+            background: #6200ea;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Teen Chat</h2>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="message bot">Hey there! What's up?</div>
+        </div>
+        <div class="quick-replies" id="quick-replies"></div>
+        <div class="chat-input-area">
+            <input type="file" id="file-input" hidden>
+            <button id="upload-btn" title="Upload a file">📎</button>
+            <button id="voice-btn" title="Speak">🎤</button>
+            <input type="text" id="chat-input" placeholder="Type your message...">
+            <button id="send-btn">➤</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('send-btn').addEventListener('click', sendMessage);
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            document.getElementById('file-input').click();
+        });
+
+        document.getElementById('voice-btn').addEventListener('click', function() {
+            alert('Voice input feature coming soon!');
+        });
+
+        function sendMessage(message = null) {
+            const chatBox = document.getElementById('chat-box');
+            const input = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('send-btn');
+            
+            let userMessageContent = message || input.value.trim();
+
+            if (userMessageContent) {
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user');
+                userMessage.textContent = userMessageContent;
+                chatBox.appendChild(userMessage);
+                
+                input.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+                
+                // Add glow effect
+                sendBtn.classList.add('glow');
+                sendBtn.addEventListener('animationend', () => {
+                    sendBtn.classList.remove('glow');
+                }, { once: true });
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.classList.add('message', 'bot');
+                    botMessage.textContent = 'Here are some quick replies for you:';
+                    chatBox.appendChild(botMessage);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    
+                    // Generate quick replies
+                    generateQuickReplies(['Sure!', 'No thanks', 'Tell me more']);
+                }, 1000);
+            }
+        }
+
+        function generateQuickReplies(replies) {
+            const quickRepliesContainer = document.getElementById('quick-replies');
+            quickRepliesContainer.innerHTML = '';  // Clear previous replies
+            
+            replies.forEach(reply => {
+                const button = document.createElement('button');
+                button.classList.add('quick-reply');
+                button.textContent = reply;
+                button.addEventListener('click', () => {
+                    sendMessage(reply);
+                    quickRepliesContainer.innerHTML = '';  // Clear quick replies after selection
+                });
+                quickRepliesContainer.appendChild(button);
+            });
+        }
+    </script>
+</body>
+</html>
