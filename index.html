@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Elastic Particle Game</title>
+    
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        #root {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #4F46E5;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+            touch-action: none;
+        }
+
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+
+    <!-- Load dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root">
+        <div class="loading">Loading game...</div>
+    </div>
+
+    <!-- Load game code -->
+    <script src="game.js"></script>
+    
+    <!-- Initialize the game -->
+    <script>
+        const rootElement = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(React.createElement(ElasticParticleGame));
+    </script>
+</body>
+</html>
