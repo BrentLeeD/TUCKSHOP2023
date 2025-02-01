@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+const { useState, useEffect, useRef } = React;
 
 const VirtualJoystick = ({ onMove }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -70,20 +70,18 @@ const VirtualJoystick = ({ onMove }) => {
     };
   }, [isDragging]);
 
-  return (
-    <div 
-      ref={containerRef}
-      className="relative w-32 h-32 bg-gray-800 rounded-full touch-none"
-    >
-      <div 
-        className="absolute w-16 h-16 bg-blue-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 opacity-80"
-        style={{ 
-          left: '50%',
-          top: '50%',
-          transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px))`
-        }}
-      />
-    </div>
+  return React.createElement('div', {
+    ref: containerRef,
+    className: "relative w-32 h-32 bg-gray-800 rounded-full touch-none"
+  }, 
+    React.createElement('div', {
+      className: "absolute w-16 h-16 bg-blue-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 opacity-80",
+      style: { 
+        left: '50%',
+        top: '50%',
+        transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px))`
+      }
+    })
   );
 };
 
@@ -97,7 +95,6 @@ const ElasticParticleGame = () => {
   const zonesRef = useRef([]);
   const requestIdRef = useRef();
 
-  // Initialize game state
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -130,7 +127,6 @@ const ElasticParticleGame = () => {
         matched: false
       });
 
-      // Create matching zones
       const zoneAngle = angle + Math.PI;
       zonesRef.current.push({
         x: canvas.width / 2 + Math.cos(zoneAngle) * 150,
@@ -140,7 +136,7 @@ const ElasticParticleGame = () => {
       });
     });
 
-    // Keep keyboard controls for desktop
+    // Handle keyboard input
     const handleKeyDown = (e) => {
       switch(e.key) {
         case 'ArrowUp':
@@ -180,18 +176,15 @@ const ElasticParticleGame = () => {
     };
   }, []);
 
-  // Handle joystick movement
   const handleJoystickMove = ({ x, y }) => {
     setDirection({ x, y });
   };
 
-  // Animation and game logic loop
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
     const checkCollisions = () => {
-      // Check particle cluster collision with target orbs
       targetsRef.current.forEach(target => {
         if (target.matched) return;
 
@@ -208,7 +201,6 @@ const ElasticParticleGame = () => {
           }
         });
 
-        // Check if target is in matching zone
         zonesRef.current.forEach((zone, index) => {
           if (target.color === zone.color) {
             const dx = target.x - zone.x;
@@ -227,7 +219,7 @@ const ElasticParticleGame = () => {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw zones first (background)
+      // Draw zones
       zonesRef.current.forEach(zone => {
         ctx.beginPath();
         ctx.arc(zone.x, zone.y, zone.radius, 0, Math.PI * 2);
@@ -304,25 +296,37 @@ const ElasticParticleGame = () => {
     };
   }, [direction, gameWon]);
 
-  return (
-    <div className="flex flex-col items-center gap-4 touch-none">
-      <div className="text-xl font-bold text-blue-600">Score: {score}</div>
-      <canvas
-        ref={canvasRef}
-        width={400}
-        height={400}
-        className="bg-gray-900 rounded-lg"
-      />
-      <VirtualJoystick onMove={handleJoystickMove} />
-      <div className="text-sm text-gray-600 text-center">
-        {gameWon ? (
-          <div className="text-green-500 font-bold">You won! All orbs matched!</div>
-        ) : (
-          <div>Use the joystick to move the particle cluster and push the colored orbs to their matching zones!</div>
-        )}
-      </div>
-    </div>
-  );
+  return React.createElement('div', { 
+    className: "flex flex-col items-center gap-4 touch-none" 
+  }, [
+    React.createElement('div', { 
+      key: 'score',
+      className: "text-xl font-bold text-blue-600" 
+    }, `Score: ${score}`),
+    React.createElement('canvas', {
+      key: 'canvas',
+      ref: canvasRef,
+      width: 400,
+      height: 400,
+      className: "bg-gray-900 rounded-lg"
+    }),
+    React.createElement(VirtualJoystick, {
+      key: 'joystick',
+      onMove: handleJoystickMove
+    }),
+    React.createElement('div', {
+      key: 'message',
+      className: "text-sm text-gray-600 text-center"
+    }, gameWon ? 
+      React.createElement('div', {
+        className: "text-green-500 font-bold"
+      }, "You won! All orbs matched!") :
+      React.createElement('div', null, 
+        "Use the joystick to move the particle cluster and push the colored orbs to their matching zones!"
+      )
+    )
+  ]);
 };
 
-export default ElasticParticleGame;
+// Export for use in HTML
+window.ElasticParticleGame = ElasticParticleGame;
